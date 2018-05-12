@@ -1,0 +1,33 @@
+{
+  "name": "express-vue-todo-app",
+  "version": "0.0.0",
+  "description": "Express Vue Todo Practice App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marinko-peso/express-vue-todo-app.git"
+  },
+  "keywords": [
+    "express",
+    "vue",
+    "todo",
+    "app",
+    "practice"
+  ],
+  "author": "Marinko Peso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marinko-peso/express-vue-todo-app/issues"
+  },
+  "homepage": "https://github.com/marinko-peso/express-vue-todo-app#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "method-override": "^2.3.10",
+    "mongoose": "^5.1.0",
+    "morgan": "^1.9.0"
+  }
+}
