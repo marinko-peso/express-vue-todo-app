@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const signale = require('signale');
 
 const app = express();
 const config = require('./app/Config');
@@ -12,8 +13,8 @@ const config = require('./app/Config');
 // Connect to database.
 mongoose.connect(config.DB);
 
-// Send static files from the public path directory.
-app.use(express.static(path.join(__dirname, '/public')));
+// Send static files from the client path directory.
+app.use(express.static(path.join(__dirname, '/../client')));
 
 // Use morgan to log request in dev mode.
 app.use(morgan('dev'));
@@ -23,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const port = config.APP_PORT || 4000;
 app.listen(port);
-console.log('App listening on port: %i', port);
+signale.success('App listening on port: ', port);
 
 const todoRoutes = require('./app/Routes');
 // Use routes defined in Route.js and prefix it with api.
@@ -42,5 +43,5 @@ app.use(function(request, response, next) {
 
 // Server index.html page when request to the root is made.
 app.get('/', function(request, response, next) {
-  response.sendfile('./public/index.html');
+  response.sendfile('./../client/index.html');
 });
