@@ -19,7 +19,7 @@
     data() {
       return {}
     },
-    components: {CreateTodo, ListTodo}
+    components: { CreateTodo, ListTodo }
   };
 </script>
 
