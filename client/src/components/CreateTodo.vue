@@ -18,7 +18,8 @@
 
 <script>
   import axios from 'axios';
-  import bus from './../event-bus';
+
+  import store from './../store';
 
   export default {
     data() {
@@ -27,29 +28,19 @@
         typing: false
       }
     },
+    store: store,
     methods: {
       addTodo(event) {
         if (event)
           event.preventDefault();
-        const url = 'http://localhost:4000/api/add';
-        const param = {
-          name: this.todo,
-          done: false
-        };
-        axios.post(url, param).then(response => {
-          console.trace(response);
-          this.clearTodo();
-          this.refreshTodo();
-          this.typing = false;
-        }).catch(error => {
-          console.error(error);
-        });
-      },
-      clearTodo() {
-        this.todo = '';
-      },
-      refreshTodo() {
-        bus.$emit('refreshTodo');
+        this.$store.dispatch('addTodo', { name: this.todo })
+          .then(() => {
+            this.todo = '';
+            this.typing = false;
+          })
+          .catch(error => {
+            console.error(error);
+          });
       }
     }
   };

@@ -8,8 +8,9 @@
     "dev": "webpack --watch --mode development",
     "prod": "webpack --progress --hide-modules --mode production",
     "lint": "./node_modules/.bin/eslint",
-    "clean": "del-cli public/dist/*",
-    "start": "node ./server/server"
+    "clean": "del-cli client/dist/*",
+    "start": "node ./server/server",
+    "debug": "node inspect ./server/server"
   },
   "repository": {
     "type": "git",
@@ -32,13 +33,16 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.1.1",
+    "debug": "^3.1.0",
     "express": "^4.16.3",
     "method-override": "^2.3.10",
     "mongoose": "^5.1.0",
     "morgan": "^1.9.0",
+    "openurl": "^1.1.1",
     "signale": "^1.0.1",
     "vue": "^2.5.16",
-    "vue-axios": "^2.1.1"
+    "vue-axios": "^2.1.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

@@ -50,13 +50,13 @@ todoRoutes.route('/update/:id').put(function (request, response, next) {
 
     item.name = request.body.name;
     item.done = request.body.done;
-    item.save({
-      function(error, item) {
-        if (error)
-          response.status(400).send('Not able to update item');
+    item.save()
+      .then(function (item) {
         response.status(200).json(item);
-      }
-    })
+      })
+      .catch(function (error) {
+        response.status(400).send('Error occurred: ' + error);
+      });
   });
 });
 

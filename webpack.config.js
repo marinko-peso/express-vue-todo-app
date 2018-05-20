@@ -7,12 +7,11 @@ const env = process.env.NODE_ENV;
 
 
 module.exports = {
-  entry: './public/src/main.js',
+  entry: './client/src/main.js',
   output: {
-    //filename: './public/dist/bundle.js'
     filename: '[name].min.js',
-    path: path.resolve(__dirname, 'public/dist'),
-    publicPath: 'public/'
+    path: path.resolve(__dirname, 'client/dist'),
+    publicPath: 'client/'
   },
   optimization: {
     // Creates vendor~ and runtime~ chunks.

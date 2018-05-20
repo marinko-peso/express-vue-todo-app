@@ -2,18 +2,13 @@
   <div>
     <div class="col-md-12" v-show="todos.length">
       <h3>Todo Items</h3>
-      <div class="row mrb-10" v-for="todo in todos">
-        <div class="input-group m-b-5">
-          <div class="input-group m-b-5">
-            <span class="input-group-addon addon-right"><input type="checkbox" v-model="todo.done" :checked="todo.done" :value="todo.done" v-on:change="updateTodo(todo)" title="Mark as done?"/></span>
-            <input type="text" class="form-control" :class="todo.done?'todo__done':''" v-model="todo.name" @keypress="todo.editing=true" @keyup.enter="updateTodo(todo)">
-            <span class="input-group-addon addon-left" title="Delete todo?" v-on:click="deleteTodo(todo._id)">X</span>
-          </div>
-          <span class="help-block-small" v-show="todo.editing">
-            Hit enter to update
-          </span>
-        </div>
-      </div>
+      <TodoItem v-for="(todo, index) in todos"
+                v-bind:todo="todos[index]"
+                v-bind:index="index"
+                v-on:update="updateTodo"
+                v-on:delete="deleteTodo"
+                v-bind:key="todo.id">
+      </TodoItem>
     </div>
 
     <div class="row alert alert-info text-center" v-show="!todos.length">
@@ -28,57 +23,43 @@
 
 
 <script>
-  import axios from 'axios';
-  import bus from './../event-bus';
+  import { mapGetters } from 'vuex';
+
+  import store from './../store';
+  import TodoItem from './TodoItem.vue';
 
   export default {
     data() {
-      return {
-        todos: []
-      }
+      return {}
     },
+    components: {
+      TodoItem
+    },
+    store: store,
     /**
      * Once created fetch items and start listening for events.
      */
     created: function() {
-      this.fetchTodo();
-      this.listenToEvents();
+      this.$store.dispatch('getInitialTodos');
+    },
+    computed: {
+      ...mapGetters([
+        'todos'
+      ])
     },
     methods: {
-      fetchTodo() {
-        const url = 'http://localhost:4000/api/all';
-        axios.get(url).then(response => {
-          this.todos = response.data;
-        });
+      updateTodo(data) {
+        this.$store.dispatch('updateTodo', data);
       },
-
-      updateTodo(todo) {
-        const id = todo._id;
-        const url = `http://localhost:4000/api/update/${id}`;
-        todo.editing = false;
-        axios.put(url, todo).then(response => {
-          console.trace(response);
-        }).catch(error => {
-          console.error(error);
-        });
-      },
-
-      deleteTodo(id) {
-        const url = `http://localhost:4000/api/delete/${id}`;
-        axios.delete(url).then(() => this.fetchTodo());
-      },
-
-      listenToEvents() {
-        bus.$on('refreshTodo', $event => {
-          this.fetchTodo();
-        });
+      deleteTodo(data) {
+        this.$store.dispatch('deleteTodo', data);
       }
     }
   };
 </script>
 
 
-<style scoped>
+<style>
   .delete__icon {}
   .todo__done {
     text-decoration: line-through !important
