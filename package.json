@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/marinko-peso/express-vue-todo-app#readme",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^1.6.0",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.1.1",
     "debug": "^3.1.0",
